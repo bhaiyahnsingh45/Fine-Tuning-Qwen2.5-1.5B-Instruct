@@ -1,0 +1,620 @@
+[
+    {
+        "user_content": "Get me a monthly OEE breakdown for all products from 2024-12-11 18:09:26 to 2025-02-05 20:17:37",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "monthly": true,
+                    "all_product": true,
+                    "custom_start_date": "2024-12-11 18:09:26",
+                    "custom_end_date": "2025-02-05 20:17:37"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "List the top 4 performing machines in terms of OEE from 2024-09-02 17:54:11 to 2024-09-15 02:52:01",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "highest_machine": true,
+                    "top": 4,
+                    "custom_start_date": "2024-09-02 17:54:11",
+                    "custom_end_date": "2024-09-15 02:52:01"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Hourly OEE for LINE_A01_FILLER_M01 starting 2024-10-04 00:46:37 until 2024-10-05 11:51:46",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "machine": "LINE_A01_FILLER_M01",
+                    "hourly": true,
+                    "custom_start_date": "2024-10-04 00:46:37",
+                    "custom_end_date": "2024-10-05 11:51:46"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Compare the OEE of LINE_A01 vs LINE_B02 from 2024-02-09 04:53:13 to 2024-02-15 14:44:34",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_A01",
+                    "custom_start_date": "2024-02-09 04:53:13",
+                    "custom_end_date": "2024-02-15 14:44:34"
+                }
+            },
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_B02",
+                    "custom_start_date": "2024-02-09 04:53:13",
+                    "custom_end_date": "2024-02-15 14:44:34"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Give me the weekly OEE for the Night Shift from 2024-03-10 17:34:24 to 2024-04-06 02:25:15",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "shift": "Night Shift",
+                    "weekly": true,
+                    "custom_start_date": "2024-03-10 17:34:24",
+                    "custom_end_date": "2024-04-06 02:25:15"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Weekly OEE report for LINE_E05 covering period 2024-10-07 12:40:20 to 2024-11-18 21:16:16",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_E05",
+                    "weekly": true,
+                    "custom_start_date": "2024-10-07 12:40:20",
+                    "custom_end_date": "2024-11-18 21:16:16"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Give me the weekly OEE for the Day Shift from 2024-11-03 05:20:42 to 2024-11-27 17:31:15",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "shift": "Day Shift",
+                    "weekly": true,
+                    "custom_start_date": "2024-11-03 05:20:42",
+                    "custom_end_date": "2024-11-27 17:31:15"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "What is the overall OEE for Plant_Chicago from 2024-01-28 07:33:33 to 2024-05-24 11:42:35, excluding zeros?",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "plant": "Plant_Chicago",
+                    "exclude_zero": true,
+                    "custom_start_date": "2024-01-28 07:33:33",
+                    "custom_end_date": "2024-05-24 11:42:35"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "List the top 4 performing machines in terms of OEE from 2024-06-02 09:26:19 to 2024-08-01 10:24:17",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "highest_machine": true,
+                    "top": 4,
+                    "custom_start_date": "2024-06-02 09:26:19",
+                    "custom_end_date": "2024-08-01 10:24:17"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Compare OEE between Day Shift and Night Shift for the date range 2024-09-22 18:03:54 to 2024-09-23 23:49:11",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "shift": "Day Shift",
+                    "custom_start_date": "2024-09-22 18:03:54",
+                    "custom_end_date": "2024-09-23 23:49:11"
+                }
+            },
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "shift": "Night Shift",
+                    "custom_start_date": "2024-09-22 18:03:54",
+                    "custom_end_date": "2024-09-23 23:49:11"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Get me a monthly OEE breakdown for all products from 2024-07-28 03:17:25 to 2024-09-27 08:25:08",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "monthly": true,
+                    "all_product": true,
+                    "custom_start_date": "2024-07-28 03:17:25",
+                    "custom_end_date": "2024-09-27 08:25:08"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Compare OEE between Day Shift and Night Shift for the date range 2024-11-08 23:58:34 to 2024-11-09 07:03:05",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "shift": "Day Shift",
+                    "custom_start_date": "2024-11-08 23:58:34",
+                    "custom_end_date": "2024-11-09 07:03:05"
+                }
+            },
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "shift": "Night Shift",
+                    "custom_start_date": "2024-11-08 23:58:34",
+                    "custom_end_date": "2024-11-09 07:03:05"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Hourly OEE for LINE_A01_CAPPER_M02 starting 2024-07-28 08:36:16 until 2024-07-30 23:26:03",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "machine": "LINE_A01_CAPPER_M02",
+                    "hourly": true,
+                    "custom_start_date": "2024-07-28 08:36:16",
+                    "custom_end_date": "2024-07-30 23:26:03"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Show me machines with OEE greater than 80 between 2024-03-29 07:53:27 and 2024-04-13 12:42:18",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "greater_than": "80",
+                    "custom_start_date": "2024-03-29 07:53:27",
+                    "custom_end_date": "2024-04-13 12:42:18"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "What is the overall OEE for Plant_Chicago from 2024-12-26 17:11:42 to 2025-01-16 20:46:55, excluding zeros?",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "plant": "Plant_Chicago",
+                    "exclude_zero": true,
+                    "custom_start_date": "2024-12-26 17:11:42",
+                    "custom_end_date": "2025-01-16 20:46:55"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Weekly OEE report for LINE_A01 covering period 2024-08-18 02:16:50 to 2024-08-19 08:28:35",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_A01",
+                    "weekly": true,
+                    "custom_start_date": "2024-08-18 02:16:50",
+                    "custom_end_date": "2024-08-19 08:28:35"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Weekly OEE report for LINE_A01 covering period 2024-05-06 15:20:17 to 2024-06-06 10:00:44",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_A01",
+                    "weekly": true,
+                    "custom_start_date": "2024-05-06 15:20:17",
+                    "custom_end_date": "2024-06-06 10:00:44"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Show me the daily OEE for machine LINE_E05_CUTTER_M02 between 2024-01-03 05:06:50 and 2024-01-09 23:09:39",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "machine": "LINE_E05_CUTTER_M02",
+                    "daily": true,
+                    "custom_start_date": "2024-01-03 05:06:50",
+                    "custom_end_date": "2024-01-09 23:09:39"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "List the top 6 performing machines in terms of OEE from 2024-09-01 14:11:32 to 2024-09-29 08:46:40",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "highest_machine": true,
+                    "top": 6,
+                    "custom_start_date": "2024-09-01 14:11:32",
+                    "custom_end_date": "2024-09-29 08:46:40"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Compare the OEE of LINE_A01 vs LINE_B02 from 2024-07-29 01:52:32 to 2024-08-20 07:37:07",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_A01",
+                    "custom_start_date": "2024-07-29 01:52:32",
+                    "custom_end_date": "2024-08-20 07:37:07"
+                }
+            },
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_B02",
+                    "custom_start_date": "2024-07-29 01:52:32",
+                    "custom_end_date": "2024-08-20 07:37:07"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Compare the OEE of LINE_A01 vs LINE_B02 from 2024-11-26 21:19:44 to 2024-12-04 03:02:02",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_A01",
+                    "custom_start_date": "2024-11-26 21:19:44",
+                    "custom_end_date": "2024-12-04 03:02:02"
+                }
+            },
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_B02",
+                    "custom_start_date": "2024-11-26 21:19:44",
+                    "custom_end_date": "2024-12-04 03:02:02"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Hourly OEE for LINE_E05_EXTRUDER_M01 starting 2024-09-30 09:42:25 until 2024-10-02 02:28:23",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "machine": "LINE_E05_EXTRUDER_M01",
+                    "hourly": true,
+                    "custom_start_date": "2024-09-30 09:42:25",
+                    "custom_end_date": "2024-10-02 02:28:23"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "What is the overall OEE for Plant_Chicago from 2024-05-07 12:16:25 to 2024-09-11 23:46:15, excluding zeros?",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "plant": "Plant_Chicago",
+                    "exclude_zero": true,
+                    "custom_start_date": "2024-05-07 12:16:25",
+                    "custom_end_date": "2024-09-11 23:46:15"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Compare the OEE of LINE_A01 vs LINE_B02 from 2024-04-02 10:34:58 to 2024-04-14 08:00:56",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_A01",
+                    "custom_start_date": "2024-04-02 10:34:58",
+                    "custom_end_date": "2024-04-14 08:00:56"
+                }
+            },
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_B02",
+                    "custom_start_date": "2024-04-02 10:34:58",
+                    "custom_end_date": "2024-04-14 08:00:56"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "What is the overall OEE for Plant_Berlin from 2024-03-22 05:55:23 to 2024-05-25 06:44:52, excluding zeros?",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "plant": "Plant_Berlin",
+                    "exclude_zero": true,
+                    "custom_start_date": "2024-03-22 05:55:23",
+                    "custom_end_date": "2024-05-25 06:44:52"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "How did Water_500ml perform in terms of OEE between 2024-11-23 18:55:15 and 2024-12-18 20:35:34?",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "product": "Water_500ml",
+                    "custom_start_date": "2024-11-23 18:55:15",
+                    "custom_end_date": "2024-12-18 20:35:34"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "What was the OEE for line LINE_C03 from 2024-05-25 23:48:17 to 2024-06-23 01:03:13?",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_C03",
+                    "custom_start_date": "2024-05-25 23:48:17",
+                    "custom_end_date": "2024-06-23 01:03:13"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Give me the weekly OEE for the Day Shift from 2024-02-13 11:30:38 to 2024-02-29 10:51:01",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "shift": "Day Shift",
+                    "weekly": true,
+                    "custom_start_date": "2024-02-13 11:30:38",
+                    "custom_end_date": "2024-02-29 10:51:01"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "How did Cola_330ml perform in terms of OEE between 2024-10-31 21:27:15 and 2024-11-05 21:10:26?",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "product": "Cola_330ml",
+                    "custom_start_date": "2024-10-31 21:27:15",
+                    "custom_end_date": "2024-11-05 21:10:26"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "What was the OEE for line LINE_C03 from 2024-06-07 12:53:30 to 2024-06-28 22:50:07?",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_C03",
+                    "custom_start_date": "2024-06-07 12:53:30",
+                    "custom_end_date": "2024-06-28 22:50:07"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Give me the weekly OEE for the Day Shift from 2024-06-19 13:41:44 to 2024-07-05 07:39:52",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "shift": "Day Shift",
+                    "weekly": true,
+                    "custom_start_date": "2024-06-19 13:41:44",
+                    "custom_end_date": "2024-07-05 07:39:52"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Which are the bottom 3 machines in Processing_Zone by OEE for the period 2024-01-01 23:36:56 to 2024-01-27 17:59:57? Ignore zero values.",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "area": "Processing_Zone",
+                    "lowest_machine": true,
+                    "top": 3,
+                    "exclude_zero": true,
+                    "custom_start_date": "2024-01-01 23:36:56",
+                    "custom_end_date": "2024-01-27 17:59:57"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Get me a monthly OEE breakdown for all products from 2024-07-11 10:50:59 to 2024-08-04 17:35:03",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "monthly": true,
+                    "all_product": true,
+                    "custom_start_date": "2024-07-11 10:50:59",
+                    "custom_end_date": "2024-08-04 17:35:03"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "What was the OEE for line LINE_B02 from 2024-02-05 09:40:33 to 2024-02-19 12:13:01?",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_B02",
+                    "custom_start_date": "2024-02-05 09:40:33",
+                    "custom_end_date": "2024-02-19 12:13:01"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "List the top 4 performing machines in terms of OEE from 2024-04-27 07:52:04 to 2024-06-12 01:25:57",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "highest_machine": true,
+                    "top": 4,
+                    "custom_start_date": "2024-04-27 07:52:04",
+                    "custom_end_date": "2024-06-12 01:25:57"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "List the top 7 performing machines in terms of OEE from 2024-05-24 23:31:48 to 2024-07-13 12:13:33",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "highest_machine": true,
+                    "top": 7,
+                    "custom_start_date": "2024-05-24 23:31:48",
+                    "custom_end_date": "2024-07-13 12:13:33"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "How did Orange_Juice_1L perform in terms of OEE between 2024-07-26 05:21:41 and 2024-08-22 07:04:04?",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "product": "Orange_Juice_1L",
+                    "custom_start_date": "2024-07-26 05:21:41",
+                    "custom_end_date": "2024-08-22 07:04:04"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Weekly OEE report for LINE_B02 covering period 2024-03-10 14:52:44 to 2024-04-12 21:26:39",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_B02",
+                    "weekly": true,
+                    "custom_start_date": "2024-03-10 14:52:44",
+                    "custom_end_date": "2024-04-12 21:26:39"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Hourly OEE for LINE_A01_CAPPER_M02 starting 2024-10-01 08:01:05 until 2024-10-03 19:14:58",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "machine": "LINE_A01_CAPPER_M02",
+                    "hourly": true,
+                    "custom_start_date": "2024-10-01 08:01:05",
+                    "custom_end_date": "2024-10-03 19:14:58"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Show me the daily OEE for machine LINE_A01_CAPPER_M02 between 2024-04-27 21:34:20 and 2024-05-04 16:43:53",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "machine": "LINE_A01_CAPPER_M02",
+                    "daily": true,
+                    "custom_start_date": "2024-04-27 21:34:20",
+                    "custom_end_date": "2024-05-04 16:43:53"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Compare OEE between Day Shift and Night Shift for the date range 2024-04-21 06:38:06 to 2024-04-22 10:00:23",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "shift": "Day Shift",
+                    "custom_start_date": "2024-04-21 06:38:06",
+                    "custom_end_date": "2024-04-22 10:00:23"
+                }
+            },
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "shift": "Night Shift",
+                    "custom_start_date": "2024-04-21 06:38:06",
+                    "custom_end_date": "2024-04-22 10:00:23"
+                }
+            }
+        ]
+    }
+]
