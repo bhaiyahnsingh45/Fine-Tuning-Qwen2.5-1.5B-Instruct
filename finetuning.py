@@ -801,6 +801,8 @@ tags:
 - qwen
 - peft
 - lora
+datasets:
+- bhaiyahnsingh45/kpi-tool-calling
 ---
 
 # Qwen2.5-1.5B Fine-tuned for KPI Tool Calling
@@ -819,6 +821,7 @@ This model is fine-tuned from [Qwen/Qwen2.5-1.5B-Instruct](https://huggingface.c
 - **Training Samples**: {len(train_data)}
 - **Epochs**: {CONFIG['num_epochs']}
 - **Learning Rate**: {CONFIG['learning_rate']}
+- **Dataset**: [bhaiyahnsingh45/kpi-tool-calling](https://huggingface.co/datasets/bhaiyahnsingh45/kpi-tool-calling)
 
 ## Usage
 
@@ -868,6 +871,157 @@ tokenizer = AutoTokenizer.from_pretrained("{hub_model_id}")
         print(f"✗ Failed to push to Hub: {e}")
         import traceback
         traceback.print_exc()
+
+    # ========================================================================
+    # PUSH DATASET TO HUGGING FACE HUB
+    # ========================================================================
+    
+    print("\n" + "=" * 80)
+    print("STEP 12.2: Pushing Dataset to Hugging Face Hub")
+    print("=" * 80)
+    
+    try:
+        from datasets import DatasetDict
+        
+        dataset_repo_id = "bhaiyahnsingh45/kpi-tool-calling"
+        print(f"Pushing dataset to: https://huggingface.co/datasets/{dataset_repo_id}")
+        
+        # Create dataset repo if it doesn't exist
+        try:
+            create_repo(
+                repo_id=dataset_repo_id,
+                token=CONFIG["hub_token"],
+                repo_type="dataset",
+                private=False,
+                exist_ok=True
+            )
+            print(f"✓ Dataset repository ready: {dataset_repo_id}")
+        except Exception as e:
+            print(f"  Dataset repository exists or created: {e}")
+        
+        # Create datasets from the JSON files
+        from datasets import Dataset as HFDataset
+        
+        # Load raw data for dataset
+        with open(CONFIG["train_file"], 'r') as f:
+            train_raw = json.load(f)
+        with open(CONFIG["test_file"], 'r') as f:
+            test_raw = json.load(f)
+        
+        # Convert to HuggingFace Dataset format
+        def convert_to_hf_format(data):
+            formatted = []
+            for item in data:
+                if item and "user_content" in item and "tool_calls" in item:
+                    formatted.append({
+                        "user_content": item["user_content"],
+                        "tool_calls": json.dumps(item["tool_calls"])  # Store as JSON string
+                    })
+            return formatted
+        
+        train_hf = HFDataset.from_list(convert_to_hf_format(train_raw))
+        test_hf = HFDataset.from_list(convert_to_hf_format(test_raw))
+        
+        # Create DatasetDict with train and test splits
+        dataset_dict = DatasetDict({
+            "train": train_hf,
+            "test": test_hf
+        })
+        
+        print(f"  Train samples: {len(train_hf)}")
+        print(f"  Test samples: {len(test_hf)}")
+        
+        # Push to hub
+        dataset_dict.push_to_hub(
+            repo_id=dataset_repo_id,
+            token=CONFIG["hub_token"],
+            commit_message="KPI tool calling dataset for get_oee and get_availability"
+        )
+        print(f"✓ Dataset uploaded to Hub!")
+        
+        # Create dataset card
+        dataset_card = """---
+language:
+- en
+license: apache-2.0
+task_categories:
+- text-generation
+tags:
+- function-calling
+- tool-use
+- manufacturing
+- kpi
+size_categories:
+- n<1K
+---
+
+# KPI Tool Calling Dataset
+
+Dataset for fine-tuning LLMs on manufacturing KPI tool calling tasks.
+
+## Dataset Description
+
+This dataset contains examples of user queries about manufacturing KPIs and their corresponding tool calls.
+
+### Tools
+
+1. **get_oee** - Get OEE (Overall Equipment Effectiveness) metrics
+2. **get_availability** - Get availability/uptime metrics
+
+### Data Format
+
+Each example contains:
+- `user_content`: The user's query about KPIs
+- `tool_calls`: JSON array of tool calls with `tool_name` and `tool_arguments`
+
+### Example
+
+```json
+{
+  "user_content": "Get OEE for LINE_A01 from 2024-01-01 to 2024-01-31",
+  "tool_calls": "[{\\"tool_name\\": \\"get_oee\\", \\"tool_arguments\\": {\\"line\\": \\"LINE_A01\\", \\"custom_start_date\\": \\"2024-01-01 00:00:00\\", \\"custom_end_date\\": \\"2024-01-31 23:59:59\\"}}]"
+}
+```
+
+### Splits
+
+- **train**: Training examples
+- **test**: Test examples (held out for evaluation)
+
+## Usage
+
+```python
+from datasets import load_dataset
+
+dataset = load_dataset("bhaiyahnsingh45/kpi-tool-calling")
+
+# Access splits
+train_data = dataset["train"]
+test_data = dataset["test"]
+```
+
+## License
+
+Apache 2.0
+"""
+        
+        # Upload dataset card
+        api.upload_file(
+            path_or_fileobj=dataset_card.encode(),
+            path_in_repo="README.md",
+            repo_id=dataset_repo_id,
+            repo_type="dataset",
+            token=CONFIG["hub_token"]
+        )
+        print(f"✓ Dataset card uploaded!")
+        
+        print(f"\n🎉 Dataset available at: https://huggingface.co/datasets/{dataset_repo_id}")
+        
+    except Exception as e:
+        print(f"✗ Failed to push dataset to Hub: {e}")
+        import traceback
+        traceback.print_exc()
+
 else:
     print("\n⚠ Push to Hub: Skipped (no token or disabled)")
 
