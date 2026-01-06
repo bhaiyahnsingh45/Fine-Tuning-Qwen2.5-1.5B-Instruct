@@ -16,6 +16,16 @@ Data Files:
 - testing_data.json: Held out for final evaluation
 """
 
+"""
+Complete Fine-tuning Script for Google Colab
+Fine-tune Qwen 2.5 for KPI Tool Calling (Function Calling Only)
+
+Instructions:
+1. Upload your data.json to Colab
+2. Run all cells in order
+3. Model outputs JSON function calls only - no explanations
+"""
+
 # ============================================================================
 # SECTION 1: INSTALLATION & SETUP
 # ============================================================================
@@ -27,6 +37,7 @@ print("=" * 80)
 print("STEP 1: Installing Required Packages")
 print("=" * 80)
 
+# Install required packages
 packages = [
     "transformers>=4.40.0",
     "datasets>=2.16.0",
@@ -39,6 +50,11 @@ packages = [
 
 for package in packages:
     subprocess.check_call([sys.executable, "-m", "pip", "install", "-q", package])
+
+# !pip uninstall -y bitsandbytes
+# !pip install bitsandbytes >=0.45.0
+
+# !pip install --upgrade peft transformers accelerate
 
 print("✓ Installation complete!")
 
@@ -176,38 +192,58 @@ print("STEP 3: Loading Tool Schemas")
 print("=" * 80)
 
 common_properties = {
-    "custom_start_date": {"type": "string", "description": "Start date in 'YYYY-MM-DD HH:MM:SS' format"},
-    "custom_end_date": {"type": "string", "description": "End date in 'YYYY-MM-DD HH:MM:SS' format"},
-    "customer_id": {"type": "string", "description": "Customer ID (default: acme-beverage-co)"},
-    "daily": {"type": "boolean", "description": "Daily breakdown"},
-    "hourly": {"type": "boolean", "description": "Hourly breakdown"},
-    "monthly": {"type": "boolean", "description": "Monthly breakdown"},
-    "weekly": {"type": "boolean", "description": "Weekly breakdown"},
-    "yearly": {"type": "boolean", "description": "Yearly/annual breakdown"},
-    "quarterly": {"type": "boolean", "description": "Quarterly breakdown"},
-    "highest": {"type": "boolean", "description": "Highest values"},
-    "lowest": {"type": "boolean", "description": "Lowest values"},
-    "exclude_zero": {"type": "boolean", "description": "Exclude zero values"},
-    "highest_to_lowest": {"type": "boolean", "description": "Sort highest to lowest"},
-    "lowest_to_highest": {"type": "boolean", "description": "Sort lowest to highest"},
-    "top": {"type": "integer", "description": "Number of top/bottom records"},
-    "plant": {"type": "string", "description": "Filter by plant (e.g., Plant_Austin)"},
-    "area": {"type": "string", "description": "Filter by area (e.g., Processing_Zone)"},
-    "machine": {"type": "string", "description": "Filter by machine (e.g., LINE_A01_FILLER_M01)"},
-    "line": {"type": "string", "description": "Filter by line (e.g., LINE_A01)"},
-    "all_plant": {"type": "boolean", "description": "Include all plants"},
-    "all_area": {"type": "boolean", "description": "Include all areas"},
-    "all_machine": {"type": "boolean", "description": "Include all machines"},
-    "all_line": {"type": "boolean", "description": "Include all lines"},
-    "highest_machine": {"type": "boolean", "description": "Get highest performing machines"},
-    "lowest_machine": {"type": "boolean", "description": "Get lowest performing machines"},
-    "rank": {"type": "boolean", "description": "Rank results"},
-    "shift": {"type": "string", "description": "Filter by shift (Day Shift, Night Shift, etc.)"},
-    "all_shift": {"type": "boolean", "description": "Include all shifts"},
-    "product": {"type": "string", "description": "Filter by product (e.g., Cola_330ml)"},
-    "all_product": {"type": "boolean", "description": "Include all products"},
-    "greater_than": {"type": "string", "description": "Filter > threshold"},
-    "less_than": {"type": "string", "description": "Filter < threshold"},
+    # Time arguments
+    "custom_start_date": {"type": "string", "description": "Start time in 'YYYY-MM-DD HH:MM:SS' format"},
+    "custom_end_date": {"type": "string", "description": "End time in 'YYYY-MM-DD HH:MM:SS' format"},
+    
+    # Aggregation Options
+    "daily": {"type": "boolean", "description": "Set true for daily aggregation"},
+    "hourly": {"type": "boolean", "description": "Set true for hourly aggregation"},
+    "monthly": {"type": "boolean", "description": "Set true for monthly aggregation"},
+    "weekly": {"type": "boolean", "description": "Set true for weekly aggregation"},
+    "quarterly": {"type": "boolean", "description": "Set true for quarterly aggregation"},
+    "yearly": {"type": "boolean", "description": "Set true for yearly aggregation"},
+    "exclude_zero": {"type": "boolean", "description": "Set true to filter out zero values"},
+    
+    # Value Filtering
+    "greater_than": {"type": "string", "description": "String value for numeric threshold filtering (e.g., '100')"},
+    "less_than": {"type": "string", "description": "String value for numeric threshold filtering (e.g., '50')"},
+    "only_positive": {"type": "boolean", "description": "Set true to include only positive values"},
+    "only_negative": {"type": "boolean", "description": "Set true to include only negative values"},
+    
+    # Ranking and Sorting
+    "highest": {"type": "boolean", "description": "True for highest KPI values (when not machine-specific)"},
+    "lowest": {"type": "boolean", "description": "True for lowest KPI values (when not machine-specific)"},
+    "highest_to_lowest": {"type": "boolean", "description": "True when explicitly sorting highest to lowest"},
+    "lowest_to_highest": {"type": "boolean", "description": "True when explicitly sorting lowest to highest"},
+    "top": {"type": "integer", "description": "Integer specifying number of top/bottom results"},
+    "rank": {"type": "boolean", "description": "True when explicit ranking is requested"},
+    
+    # Plant Analysis
+    "plant": {"type": "string", "description": "Use when user explicitly mentions a specific plant name/identifier (e.g., Plant_Austin, Plant_Denver)"},
+    "all_plant": {"type": "boolean", "description": "Use when user mentions: all plants, each plant, which plant has, across all plants"},
+    
+    # Area Analysis
+    "area": {"type": "string", "description": "Use when user explicitly mentions a specific area name (e.g., Processing_Zone, Assembly_Area)"},
+    "all_area": {"type": "boolean", "description": "Use when user mentions: all areas, each area, which area has, across all areas"},
+    
+    # Line Analysis - IMPORTANT: Use for LINE_XX format (short format like LINE_A01, LINE_B02)
+    "line": {"type": "string", "description": "Use when user explicitly mentions a specific LINE name in short format: LINE_A01, LINE_B02, LINE_C03, LINE_D04, LINE_E05. Create separate tool call for each line."},
+    "all_line": {"type": "boolean", "description": "Use when user mentions: all lines, each line, which line has, across all lines"},
+    
+    # Machine Analysis - IMPORTANT: Use for LINE_XX_TYPE_MXX format (long format with machine type)
+    "machine": {"type": "string", "description": "Use when user explicitly mentions a specific MACHINE identifier in long format: LINE_A01_FILLER_M01, LINE_B02_CAPPER_M02, LINE_C03_MIXER_M01. Create separate tool call for each machine."},
+    "all_machine": {"type": "boolean", "description": "Use when user mentions: all machines, each machine, which machine has, across all machines"},
+    "highest_machine": {"type": "boolean", "description": "True when finding machines with highest KPI values"},
+    "lowest_machine": {"type": "boolean", "description": "True when finding machines with lowest KPI values"},
+    
+    # Shift Analysis
+    "shift": {"type": "string", "description": "Use when user explicitly mentions a specific shift (e.g., Day Shift, Night Shift, Morning Shift, Weekend Shift, Graveyard Shift)"},
+    "all_shift": {"type": "boolean", "description": "Use when user mentions: all shifts, each shift, which shift has, across all shifts"},
+    
+    # Product Analysis
+    "product": {"type": "string", "description": "Use when user explicitly mentions a specific product name/code (e.g., Cola_330ml, Juice_1L). Create separate tool call for each product."},
+    "all_product": {"type": "boolean", "description": "Use when user mentions: all products, each product, which product has, across all products"},
 }
 
 get_oee_schema = {
@@ -246,22 +282,63 @@ print("  - get_availability: availability/uptime queries")
 # SECTION 5: SYSTEM PROMPT
 # ============================================================================
 
-SYSTEM_PROMPT = """You are a function calling assistant for manufacturing KPI data. Respond ONLY with function calls in JSON format - NO explanations.
+SYSTEM_PROMPT = """You are a function calling assistant for manufacturing KPI data. Respond ONLY with function calls in JSON format.
 
-Tools:
+## Tools
 1. get_oee - For OEE, equipment efficiency, overall effectiveness
 2. get_availability - For availability, uptime, machine availability
 
-Rules:
-1. Output ONLY function calls - NO text explanations
-2. For comparisons, make SEPARATE calls for each item
-3. If user asks for BOTH OEE and availability, call BOTH tools
-4. Always include customer_id: "acme-beverage-co"
-5. Always include custom_start_date and custom_end_date
-6. Choose tool by keywords:
-   - OEE/effectiveness/efficiency → get_oee
-   - availability/uptime → get_availability
-   - Both mentioned → call both tools"""
+## CRITICAL OUTPUT FORMAT RULES
+1. Output ONLY the tool name and REQUIRED arguments
+2. ALWAYS include: custom_start_date, custom_end_date
+3. ONLY include other arguments if EXPLICITLY mentioned in the query
+4. NEVER include arguments with false, null, or empty values
+5. NEVER include default values - omit the parameter entirely if not needed
+6. Keep the response MINIMAL - only what is explicitly requested
+
+## Tool Selection
+- OEE/effectiveness/efficiency → get_oee
+- availability/uptime → get_availability
+- Both mentioned → call BOTH tools
+
+## CRITICAL: line vs machine Parameter
+- "line": SHORT format only: LINE_A01, LINE_B02, LINE_C03, LINE_D04, LINE_E05
+- "machine": LONG format with type: LINE_A01_FILLER_M01, LINE_B02_CAPPER_M02, LINE_C03_MIXER_M01
+- Pattern LINE_XX (no suffix) → "line" parameter
+- Pattern LINE_XX_TYPE_MXX → "machine" parameter
+
+## Multiple Items → SEPARATE Tool Calls
+- Multiple lines → separate tool call for each line
+- Multiple machines → separate tool call for each machine  
+- Multiple products → separate tool call for each product
+- Comparisons → separate tool calls
+
+## When to use all_* parameters (ONLY if query mentions):
+- "all machines"/"each machine"/"which machine" → all_machine: true
+- "all lines"/"each line"/"which line" → all_line: true
+- "all plants"/"each plant"/"which plant" → all_plant: true
+
+## When to use ranking parameters (ONLY if query mentions):
+- highest/best/top → highest: true
+- lowest/worst/bottom → lowest: true
+- machines with highest → highest_machine: true
+- machines with lowest → lowest_machine: true
+
+## When to use aggregation (ONLY if query mentions):
+- daily/per day → daily: true
+- hourly/per hour → hourly: true
+- weekly/per week → weekly: true
+- monthly/per month → monthly: true
+- quarterly → quarterly: true
+- yearly/annual → yearly: true
+
+## Example - CORRECT (minimal):
+Query: "Get OEE for LINE_A01 from 2024-01-01 to 2024-01-31"
+Response: {"name": "get_oee", "arguments": {"custom_start_date": "2024-01-01 00:00:00", "custom_end_date": "2024-01-31 23:59:59", "line": "LINE_A01"}}
+
+## Example - WRONG (too many params):
+Response: {"name": "get_oee", "arguments": {"custom_start_date": "...", "custom_end_date": "...", "line": "LINE_A01", "daily": false, "hourly": false, ...}}
+DO NOT include false/null values!"""
 
 # ============================================================================
 # SECTION 6: DATA LOADING
@@ -629,6 +706,21 @@ print("\n" + "=" * 80)
 print("STEP 9: Preparing Datasets")
 print("=" * 80)
 
+def clean_tool_arguments(args: Dict) -> Dict:
+    """Remove false, null, empty, and default values from tool arguments.
+    Only keep arguments that are explicitly set to meaningful values."""
+    cleaned = {}
+    for k, v in args.items():
+        # Skip false, None, empty string, 0 (except for 'top' which can be 0)
+        if v is None or v == "" or v == "null":
+            continue
+        if isinstance(v, bool) and v == False:
+            continue
+        if k != "top" and v == 0:
+            continue
+        cleaned[k] = v
+    return cleaned
+
 def format_for_training(data: List[Dict], tokenizer) -> Dataset:
     formatted = []
     for sample in data:
@@ -637,9 +729,13 @@ def format_for_training(data: List[Dict], tokenizer) -> Dataset:
             {"role": "user", "content": sample["user_content"]}
         ]
         
+        # Clean tool arguments - only include non-default values
         tool_calls = [{
             "type": "function",
-            "function": {"name": tc["tool_name"], "arguments": json.dumps(tc["tool_arguments"])}
+            "function": {
+                "name": tc["tool_name"], 
+                "arguments": json.dumps(clean_tool_arguments(tc["tool_arguments"]))
+            }
         } for tc in sample["tool_calls"]]
         
         messages.append({"role": "assistant", "content": "", "tool_calls": tool_calls})
@@ -788,6 +884,10 @@ if CONFIG["push_to_hub"] and CONFIG["hub_token"]:
             print(f"  Repository exists or created: {e}")
         
         # Create model card with actual evaluation results FIRST
+        # Helper variables for escaping braces in f-string
+        curly_open = "{"
+        curly_close = "}"
+        
         model_card = f"""---
 language:
 - en
@@ -828,12 +928,92 @@ This model is fine-tuned from [Qwen/Qwen2.5-1.5B-Instruct](https://huggingface.c
 ```python
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from peft import PeftModel
+import torch
+import json
 
 # Load model
-base_model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2.5-1.5B-Instruct")
+base_model = AutoModelForCausalLM.from_pretrained(
+    "Qwen/Qwen2.5-1.5B-Instruct",
+    torch_dtype=torch.float16,
+    device_map="auto"
+)
 model = PeftModel.from_pretrained(base_model, "{hub_model_id}")
 tokenizer = AutoTokenizer.from_pretrained("{hub_model_id}")
+
+# Define tools schema
+tools_json = '''
+[
+  {curly_open}
+    "type": "function",
+    "function": {curly_open}
+      "name": "get_oee",
+      "description": "Get OEE (Overall Equipment Effectiveness) metrics",
+      "parameters": {curly_open}
+        "type": "object",
+        "properties": {curly_open}
+          "custom_start_date": {curly_open}"type": "string", "description": "Start date (YYYY-MM-DD HH:MM:SS)"{curly_close},
+          "custom_end_date": {curly_open}"type": "string", "description": "End date (YYYY-MM-DD HH:MM:SS)"{curly_close},
+          "machine": {curly_open}"type": "string", "description": "Machine name"{curly_close},
+          "line": {curly_open}"type": "string", "description": "Production line"{curly_close},
+          "plant": {curly_open}"type": "string", "description": "Plant name"{curly_close}
+        {curly_close},
+        "required": ["custom_start_date", "custom_end_date"]
+      {curly_close}
+    {curly_close}
+  {curly_close},
+  {curly_open}
+    "type": "function",
+    "function": {curly_open}
+      "name": "get_availability",
+      "description": "Get availability/uptime metrics",
+      "parameters": {curly_open}
+        "type": "object",
+        "properties": {curly_open}
+          "custom_start_date": {curly_open}"type": "string", "description": "Start date (YYYY-MM-DD HH:MM:SS)"{curly_close},
+          "custom_end_date": {curly_open}"type": "string", "description": "End date (YYYY-MM-DD HH:MM:SS)"{curly_close},
+          "machine": {curly_open}"type": "string", "description": "Machine name"{curly_close},
+          "line": {curly_open}"type": "string", "description": "Production line"{curly_close},
+          "plant": {curly_open}"type": "string", "description": "Plant name"{curly_close}
+        {curly_close},
+        "required": ["custom_start_date", "custom_end_date"]
+      {curly_close}
+    {curly_close}
+  {curly_close}
+]
+'''
+tools = json.loads(tools_json)
+
+# System prompt
+system_prompt = "You are a function calling assistant for manufacturing KPI data. Respond ONLY with function calls."
+
+# Example query
+user_query = "Show me the OEE for LINE_A01 from January 1st to January 31st 2024"
+
+# Format messages
+messages = [
+    {curly_open}"role": "system", "content": system_prompt{curly_close},
+    {curly_open}"role": "user", "content": user_query{curly_close}
+]
+
+# Generate response
+text = tokenizer.apply_chat_template(messages, tools=tools, tokenize=False, add_generation_prompt=True)
+inputs = tokenizer([text], return_tensors="pt").to(model.device)
+
+with torch.no_grad():
+    outputs = model.generate(**inputs, max_new_tokens=512, temperature=0.1, do_sample=True)
+
+response = tokenizer.decode(outputs[0][inputs.input_ids.shape[1]:], skip_special_tokens=True)
+print(response)
 ```
+
+### Example Queries and Expected Output
+
+| Query | Tool Called | Key Arguments |
+|-------|-------------|---------------|
+| "Get OEE for LINE_A01 from 2024-01-01 to 2024-01-31" | `get_oee` | `line: LINE_A01` |
+| "Show availability for machine LINE_B02_FILLER_M01 last week" | `get_availability` | `machine: LINE_B02_FILLER_M01` |
+| "Compare OEE between LINE_A01 and LINE_B02" | `get_oee` (2 calls) | Different `line` values |
+| "Get both OEE and availability for Plant_Austin" | `get_oee` + `get_availability` | `plant: Plant_Austin` |
 
 ## Evaluation Results
 
