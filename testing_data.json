@@ -1,0 +1,806 @@
+[
+    {
+        "user_content": "Get OEE for LINE_B02_PALLETIZER_M01 and Availability for LINE_E05_PALLETIZER_M01 between 2024-07-11 00:00:00 and 2024-08-08 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "machine": "LINE_B02_PALLETIZER_M01",
+                    "custom_start_date": "2024-07-11 00:00:00",
+                    "custom_end_date": "2024-08-08 23:59:59"
+                }
+            },
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "machine": "LINE_E05_PALLETIZER_M01",
+                    "custom_start_date": "2024-07-11 00:00:00",
+                    "custom_end_date": "2024-08-08 23:59:59"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Fetch overall equipment effectiveness for machine LINE_A01_CAPPER_M01 for the date range 2025-03-07 10:00:03 to 2025-05-13 06:13:47",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2025-03-07 10:00:03",
+                    "custom_end_date": "2025-05-13 06:13:47",
+                    "machine": "LINE_A01_CAPPER_M01"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Retrieve OEE and Availability for LINE_C03 between 2024-09-15 00:00:00 and 2024-10-03 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_C03",
+                    "custom_start_date": "2024-09-15 00:00:00",
+                    "custom_end_date": "2024-10-03 23:59:59"
+                }
+            },
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "line": "LINE_C03",
+                    "custom_start_date": "2024-09-15 00:00:00",
+                    "custom_end_date": "2024-10-03 23:59:59"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "What is the OEE week-by-week for LINE_E05 bottom 6 starting 2024-05-13 00:00:00 until 2024-06-03 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2024-05-13 00:00:00",
+                    "custom_end_date": "2024-06-03 23:59:59",
+                    "line": "LINE_E05",
+                    "weekly": true,
+                    "top": 6,
+                    "lowest": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Can you show OEE for machine LINE_D04_LABELER_M02 for all shifts best 3 starting 2025-08-30 00:00:00 until 2025-11-05 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2025-08-30 00:00:00",
+                    "custom_end_date": "2025-11-05 23:59:59",
+                    "machine": "LINE_D04_LABELER_M02",
+                    "all_shift": true,
+                    "top": 3,
+                    "highest": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Get OEE for LINE_C03_PALLETIZER_M02 and Availability for LINE_C03_LABELER_M02 from 2024-10-24 00:00:00 to 2025-01-06 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "machine": "LINE_C03_PALLETIZER_M02",
+                    "custom_start_date": "2024-10-24 00:00:00",
+                    "custom_end_date": "2025-01-06 23:59:59"
+                }
+            },
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "machine": "LINE_C03_LABELER_M02",
+                    "custom_start_date": "2024-10-24 00:00:00",
+                    "custom_end_date": "2025-01-06 23:59:59"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Retrieve overall equipment effectiveness machine-wise during Night Shift between 2025-02-01 00:00:00 and 2025-02-12 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2025-02-01 00:00:00",
+                    "custom_end_date": "2025-02-12 23:59:59",
+                    "all_machine": true,
+                    "shift": "Night Shift"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Retrieve overall equipment effectiveness year-by-year for all lines for the date range 2024-01-24 00:00:00 to 2024-04-10 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2024-01-24 00:00:00",
+                    "custom_end_date": "2024-04-10 23:59:59",
+                    "all_line": true,
+                    "yearly": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Can you show overall equipment effectiveness in the Packaging_Hall rank the results from 2024-01-03 00:00:00 to 2024-02-17 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2024-01-03 00:00:00",
+                    "custom_end_date": "2024-02-17 23:59:59",
+                    "area": "Packaging_Hall",
+                    "rank": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Display overall equipment effectiveness for LINE_C03 positive values only starting 2025-07-16 00:00:00 until 2025-10-07 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2025-07-16 00:00:00",
+                    "custom_end_date": "2025-10-07 23:59:59",
+                    "line": "LINE_C03",
+                    "only_positive": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Get overall equipment effectiveness yearly across all areas rank the results from 2025-07-09 00:00:00 to 2025-07-28 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2025-07-09 00:00:00",
+                    "custom_end_date": "2025-07-28 23:59:59",
+                    "all_area": true,
+                    "yearly": true,
+                    "rank": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Retrieve overall equipment effectiveness quarter-by-quarter for LINE_C03 from 2024-09-29 14:14:51 to 2024-10-17 01:03:00",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2024-09-29 14:14:51",
+                    "custom_end_date": "2024-10-17 01:03:00",
+                    "line": "LINE_C03",
+                    "quarterly": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "I need availability annually for machine LINE_E05_PACKER_M02 greater than 52 negative values only for the date range 2025-08-04 00:00:00 to 2025-09-08 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2025-08-04 00:00:00",
+                    "custom_end_date": "2025-09-08 23:59:59",
+                    "machine": "LINE_E05_PACKER_M02",
+                    "yearly": true,
+                    "greater_than": "52",
+                    "only_negative": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Get OEE product-wise rank the results for the date range 2024-11-15 00:00:00 to 2024-11-17 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2024-11-15 00:00:00",
+                    "custom_end_date": "2024-11-17 23:59:59",
+                    "all_product": true,
+                    "rank": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Show me overall equipment effectiveness day-by-day for machine LINE_B02_FILLER_M01 between 2024-07-19 00:00:00 and 2024-09-13 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2024-07-19 00:00:00",
+                    "custom_end_date": "2024-09-13 23:59:59",
+                    "machine": "LINE_B02_FILLER_M01",
+                    "daily": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Retrieve overall equipment effectiveness weekly for machine LINE_D04_PALLETIZER_M02 sorted from highest to lowest non-zero only from 2024-08-29 08:15:52 to 2024-09-12 02:18:15",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2024-08-29 08:15:52",
+                    "custom_end_date": "2024-09-12 02:18:15",
+                    "machine": "LINE_D04_PALLETIZER_M02",
+                    "weekly": true,
+                    "highest_to_lowest": true,
+                    "exclude_zero": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Show me availability percentage per month machine-wise starting 2024-09-10 00:00:00 until 2024-10-31 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2024-09-10 00:00:00",
+                    "custom_end_date": "2024-10-31 23:59:59",
+                    "all_machine": true,
+                    "monthly": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Show me availability percentage yearly in the Processing_Zone rank the results starting 2025-06-08 00:00:00 until 2025-07-02 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2025-06-08 00:00:00",
+                    "custom_end_date": "2025-07-02 23:59:59",
+                    "area": "Processing_Zone",
+                    "yearly": true,
+                    "rank": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Display availability percentage per hour for all lines from 2025-06-08 00:00:00 to 2025-07-23 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2025-06-08 00:00:00",
+                    "custom_end_date": "2025-07-23 23:59:59",
+                    "all_line": true,
+                    "hourly": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Display availability percentage per quarter machine-wise during Weekend Shift bottom 5 performing less than 19 starting 2024-01-26 00:00:00 until 2024-02-09 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2024-01-26 00:00:00",
+                    "custom_end_date": "2024-02-09 23:59:59",
+                    "all_machine": true,
+                    "quarterly": true,
+                    "shift": "Weekend Shift",
+                    "top": 5,
+                    "lowest_machine": true,
+                    "less_than": "19"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Compare the overall equipment effectiveness between LINE_C03_MIXER_M02 and LINE_B02_MIXER_M01 from 2025-01-20 15:18:22 to 2025-03-07 06:01:44",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "machine": "LINE_C03_MIXER_M02",
+                    "custom_start_date": "2025-01-20 15:18:22",
+                    "custom_end_date": "2025-03-07 06:01:44"
+                }
+            },
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "machine": "LINE_B02_MIXER_M01",
+                    "custom_start_date": "2025-01-20 15:18:22",
+                    "custom_end_date": "2025-03-07 06:01:44"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Show me availability for machine LINE_A01_LABELER_M02 best 4 starting 2024-04-12 00:00:00 until 2024-06-30 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2024-04-12 00:00:00",
+                    "custom_end_date": "2024-06-30 23:59:59",
+                    "machine": "LINE_A01_LABELER_M02",
+                    "top": 4,
+                    "highest": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Retrieve OEE running Soda_Can during Graveyard Shift between 2025-12-28 05:50:47 and 2026-01-16 03:13:45",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2025-12-28 05:50:47",
+                    "custom_end_date": "2026-01-16 03:13:45",
+                    "product": "Soda_Can",
+                    "shift": "Graveyard Shift"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "What is the overall equipment effectiveness per month at Plant_Berlin during Weekend Shift between 2025-10-27 00:00:00 and 2025-12-11 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2025-10-27 00:00:00",
+                    "custom_end_date": "2025-12-11 23:59:59",
+                    "plant": "Plant_Berlin",
+                    "monthly": true,
+                    "shift": "Weekend Shift"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Display availability percentage hourly at Plant_Denver bottom 3 for the date range 2024-08-15 00:00:00 to 2024-11-11 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2024-08-15 00:00:00",
+                    "custom_end_date": "2024-11-11 23:59:59",
+                    "plant": "Plant_Denver",
+                    "hourly": true,
+                    "top": 3,
+                    "lowest": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Display availability yearly running Cola_330ml for the date range 2024-07-07 00:00:00 to 2024-08-29 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2024-07-07 00:00:00",
+                    "custom_end_date": "2024-08-29 23:59:59",
+                    "product": "Cola_330ml",
+                    "yearly": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Retrieve availability per quarter in the Bottling_Area ignoring zero values from 2025-03-18 00:00:00 to 2025-05-31 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2025-03-18 00:00:00",
+                    "custom_end_date": "2025-05-31 23:59:59",
+                    "area": "Bottling_Area",
+                    "quarterly": true,
+                    "exclude_zero": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Can you show overall equipment effectiveness hour-by-hour for all lines during Day Shift rank the results starting 2025-12-16 00:00:00 until 2026-02-20 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2025-12-16 00:00:00",
+                    "custom_end_date": "2026-02-20 23:59:59",
+                    "all_line": true,
+                    "hourly": true,
+                    "shift": "Day Shift",
+                    "rank": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Retrieve availability percentage per week running Cola_330ml from 2024-09-09 00:00:00 to 2024-11-28 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2024-09-09 00:00:00",
+                    "custom_end_date": "2024-11-28 23:59:59",
+                    "product": "Cola_330ml",
+                    "weekly": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Can you show OEE at Plant_Chicago between 2024-02-20 00:00:00 and 2024-02-24 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2024-02-20 00:00:00",
+                    "custom_end_date": "2024-02-24 23:59:59",
+                    "plant": "Plant_Chicago"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Display OEE weekly at Plant_Tokyo during Morning Shift rank the results from 2024-11-04 04:24:22 to 2024-11-18 08:47:57",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2024-11-04 04:24:22",
+                    "custom_end_date": "2024-11-18 08:47:57",
+                    "plant": "Plant_Tokyo",
+                    "weekly": true,
+                    "shift": "Morning Shift",
+                    "rank": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Compare OEE for LINE_C03 vs LINE_B02 from 2025-07-05 00:00:00 to 2025-08-30 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_C03",
+                    "custom_start_date": "2025-07-05 00:00:00",
+                    "custom_end_date": "2025-08-30 23:59:59"
+                }
+            },
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_B02",
+                    "custom_start_date": "2025-07-05 00:00:00",
+                    "custom_end_date": "2025-08-30 23:59:59"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "What is the availability week-by-week for LINE_D04 during Weekend Shift less than 43 for the date range 2025-04-08 05:32:36 to 2025-05-05 02:43:09",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2025-04-08 05:32:36",
+                    "custom_end_date": "2025-05-05 02:43:09",
+                    "line": "LINE_D04",
+                    "weekly": true,
+                    "shift": "Weekend Shift",
+                    "less_than": "43"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Display OEE monthly for machine LINE_A01_CAPPER_M01 during Morning Shift best 7 less than 38 for the date range 2025-05-11 00:00:00 to 2025-07-24 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2025-05-11 00:00:00",
+                    "custom_end_date": "2025-07-24 23:59:59",
+                    "machine": "LINE_A01_CAPPER_M01",
+                    "monthly": true,
+                    "shift": "Morning Shift",
+                    "top": 7,
+                    "highest": true,
+                    "less_than": "38"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Can you show availability percentage hourly for LINE_E05 top 8 negative values only starting 2025-06-09 00:00:00 until 2025-08-06 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2025-06-09 00:00:00",
+                    "custom_end_date": "2025-08-06 23:59:59",
+                    "line": "LINE_E05",
+                    "hourly": true,
+                    "top": 8,
+                    "highest": true,
+                    "only_negative": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Show me overall equipment effectiveness yearly for machine LINE_C03_MIXER_M01 greater than 64 non-zero only from 2025-12-11 00:00:00 to 2026-02-19 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2025-12-11 00:00:00",
+                    "custom_end_date": "2026-02-19 23:59:59",
+                    "machine": "LINE_C03_MIXER_M01",
+                    "yearly": true,
+                    "greater_than": "64",
+                    "exclude_zero": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Compare overall equipment effectiveness for LINE_A01 vs LINE_C03 between 2024-01-04 00:00:00 and 2024-03-15 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_A01",
+                    "custom_start_date": "2024-01-04 00:00:00",
+                    "custom_end_date": "2024-03-15 23:59:59"
+                }
+            },
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "line": "LINE_C03",
+                    "custom_start_date": "2024-01-04 00:00:00",
+                    "custom_end_date": "2024-03-15 23:59:59"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "I need availability percentage yearly for LINE_A01 starting 2024-03-31 00:00:00 until 2024-04-06 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2024-03-31 00:00:00",
+                    "custom_end_date": "2024-04-06 23:59:59",
+                    "line": "LINE_A01",
+                    "yearly": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Show me availability year-by-year product-wise during Weekend Shift rank the results greater than 59 for the date range 2025-12-18 00:00:00 to 2026-02-12 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2025-12-18 00:00:00",
+                    "custom_end_date": "2026-02-12 23:59:59",
+                    "all_product": true,
+                    "yearly": true,
+                    "shift": "Weekend Shift",
+                    "rank": true,
+                    "greater_than": "59"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Compare availability for LINE_D04 vs LINE_C03 between 2024-01-02 00:00:00 and 2024-03-06 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "line": "LINE_D04",
+                    "custom_start_date": "2024-01-02 00:00:00",
+                    "custom_end_date": "2024-03-06 23:59:59"
+                }
+            },
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "line": "LINE_C03",
+                    "custom_start_date": "2024-01-02 00:00:00",
+                    "custom_end_date": "2024-03-06 23:59:59"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Retrieve OEE and Availability for machine LINE_B02_PALLETIZER_M01 from 2024-10-20 00:00:00 to 2025-01-05 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "machine": "LINE_B02_PALLETIZER_M01",
+                    "custom_start_date": "2024-10-20 00:00:00",
+                    "custom_end_date": "2025-01-05 23:59:59"
+                }
+            },
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "machine": "LINE_B02_PALLETIZER_M01",
+                    "custom_start_date": "2024-10-20 00:00:00",
+                    "custom_end_date": "2025-01-05 23:59:59"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Retrieve availability percentage machine-wise between 2024-11-21 00:00:00 and 2024-12-25 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2024-11-21 00:00:00",
+                    "custom_end_date": "2024-12-25 23:59:59",
+                    "all_machine": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Retrieve availability percentage per day for machine LINE_B02_FILLER_M01 from 2024-01-23 00:00:00 to 2024-02-29 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2024-01-23 00:00:00",
+                    "custom_end_date": "2024-02-29 23:59:59",
+                    "machine": "LINE_B02_FILLER_M01",
+                    "daily": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Can you show availability percentage machine-wise bottom 6 performing between 2024-08-23 00:00:00 and 2024-11-12 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2024-08-23 00:00:00",
+                    "custom_end_date": "2024-11-12 23:59:59",
+                    "all_machine": true,
+                    "top": 6,
+                    "lowest_machine": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Fetch availability percentage annually for machine LINE_A01_FILLER_M02 during Graveyard Shift sorted from lowest to highest starting 2024-09-23 00:00:00 until 2024-10-16 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "custom_start_date": "2024-09-23 00:00:00",
+                    "custom_end_date": "2024-10-16 23:59:59",
+                    "machine": "LINE_A01_FILLER_M02",
+                    "yearly": true,
+                    "shift": "Graveyard Shift",
+                    "lowest_to_highest": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Display OEE per week machine-wise starting 2024-05-02 00:00:00 until 2024-05-22 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2024-05-02 00:00:00",
+                    "custom_end_date": "2024-05-22 23:59:59",
+                    "all_machine": true,
+                    "weekly": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Display OEE per day across all plants rank the results less than 48 starting 2025-07-04 00:00:00 until 2025-09-11 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2025-07-04 00:00:00",
+                    "custom_end_date": "2025-09-11 23:59:59",
+                    "all_plant": true,
+                    "daily": true,
+                    "rank": true,
+                    "less_than": "48"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Get OEE and Availability running Cola_330ml from 2025-02-08 00:00:00 to 2025-03-14 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "product": "Cola_330ml",
+                    "custom_start_date": "2025-02-08 00:00:00",
+                    "custom_end_date": "2025-03-14 23:59:59"
+                }
+            },
+            {
+                "tool_name": "get_availability",
+                "tool_arguments": {
+                    "product": "Cola_330ml",
+                    "custom_start_date": "2025-02-08 00:00:00",
+                    "custom_end_date": "2025-03-14 23:59:59"
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Show me OEE day-by-day for machine LINE_B02_PACKER_M01 rank the results from 2025-07-13 00:00:00 to 2025-07-29 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2025-07-13 00:00:00",
+                    "custom_end_date": "2025-07-29 23:59:59",
+                    "machine": "LINE_B02_PACKER_M01",
+                    "daily": true,
+                    "rank": true
+                }
+            }
+        ]
+    },
+    {
+        "user_content": "Retrieve OEE for machine LINE_B02_MIXER_M01 for all shifts negative values only for the date range 2025-04-19 00:00:00 to 2025-07-09 23:59:59",
+        "tool_calls": [
+            {
+                "tool_name": "get_oee",
+                "tool_arguments": {
+                    "custom_start_date": "2025-04-19 00:00:00",
+                    "custom_end_date": "2025-07-09 23:59:59",
+                    "machine": "LINE_B02_MIXER_M01",
+                    "all_shift": true,
+                    "only_negative": true
+                }
+            }
+        ]
+    }
+]
