@@ -106,30 +106,27 @@ CONFIG = {
     "model_name": "Qwen/Qwen2.5-1.5B-Instruct",
     "train_file": "training_data.json",
     "test_file": "testing_data.json",
-    # Data: 500 samples → 450 train, 50 validation (10% split)
     "validation_split": 0.1,
     "max_length": 2048,
-    # Epochs: 3-5 is optimal for 500 samples (avoids overfitting)
-    "num_epochs": 4,
-    # Effective batch size = batch_size × gradient_accumulation = 2×8 = 16
-    # Good for stable training with limited GPU memory
+    # REDUCED epochs to prevent overfitting (was 4, now 2)
+    "num_epochs": 2,
     "batch_size": 2,
     "gradient_accumulation_steps": 8,
-    # Learning rate: 1e-4 to 2e-4 works well for LoRA fine-tuning
-    "learning_rate": 1.5e-4,
-    # Warmup: ~10% of total steps (450 samples / 16 effective batch × 4 epochs ≈ 112 steps)
-    "warmup_steps": 10,
-    # LoRA: r=32 gives more capacity for learning tool patterns
-    "lora_r": 32,
-    "lora_alpha": 64,  # alpha = 2×r is common
-    "lora_dropout": 0.1,  # Slightly higher dropout to prevent overfitting
+    # REDUCED learning rate for more gradual learning (was 1.5e-4, now 5e-5)
+    "learning_rate": 5e-5,
+    # More warmup steps for stability
+    "warmup_steps": 20,
+    # REDUCED LoRA rank to prevent overfitting (was 32, now 16)
+    "lora_r": 16,
+    "lora_alpha": 32,  # alpha = 2×r
+    # INCREASED dropout for regularization (was 0.1, now 0.15)
+    "lora_dropout": 0.15,
     "output_dir": "./qwen-kpi-finetuned",
-    # Log every 10 steps for cleaner output
     "logging_steps": 10,
     # Hugging Face Hub settings
     "push_to_hub": True,
-    "hub_model_id": "your-username/qwen-kpi-tool-calling",  # Change to your HF username/repo
-    "hub_token": None,  # Will be set from environment or input
+    "hub_model_id": "your-username/qwen-kpi-tool-calling",
+    "hub_token": None,
 }
 
 for key, value in CONFIG.items():
